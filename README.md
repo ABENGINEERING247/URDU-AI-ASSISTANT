@@ -1,6 +1,6 @@
 # Urdu AI Luna 🌙
 
-A Streamlit-based Urdu-first AI assistant starter app. Supports Urdu script, Roman Urdu, and English prompts; chat sessions; quick prompt starters; TXT export; and PDF conversation reports.
+A Streamlit-based Urdu-first AI assistant starter app with a refreshed gradient theme, improved spacing, and emoji icon navigation. Supports Urdu script, Roman Urdu, and English prompts; chat sessions; quick prompt starters; TXT export; and PDF conversation reports.
 
 ## Features
 - Urdu-first responsive Streamlit UI

@@ -13,19 +13,30 @@ st.set_page_config(page_title="Urdu AI Luna", page_icon="🌙", layout="wide")
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Noto+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Noto+Sans:wght@400;500;600;700;800&display=swap');
+:root { --luna-ink:#172554; --luna-violet:#6d28d9; --luna-cyan:#0891b2; }
 html, body, [class*="css"] { font-family: 'Noto Sans', sans-serif; }
-.urdu { direction: rtl; text-align: right; font-family: 'Noto Nastaliq Urdu', serif; line-height: 2.1; }
-.hero { padding: 1.2rem 1.5rem; border-radius: 18px; color: white; background: linear-gradient(120deg,#101b45,#4c2a85,#176b87); }
-.hero h1 { color:white; margin:0; }
+.stApp { background: linear-gradient(180deg, rgba(238,242,255,.55) 0%, rgba(248,250,252,.96) 35%, rgba(240,249,255,.7) 100%); }
+.urdu { direction: rtl; text-align: right; font-family: 'Noto Nastaliq Urdu', serif; line-height: 2.15; }
+.hero { padding: 1.6rem 1.7rem; border-radius: 24px; color: white; background: linear-gradient(125deg,#111827 0%,#312e81 46%,#0369a1 100%); box-shadow: 0 16px 40px rgba(49,46,129,.20); border: 1px solid rgba(255,255,255,.15); }
+.hero h1 { color:white; margin:0 0 .35rem 0; font-weight:800; letter-spacing:-.03em; }
+.hero p { color:#e0f2fe; margin:.35rem 0 0 0; }
+.hero-pill { display:inline-block; margin-top:.8rem; padding:.28rem .7rem; border-radius:999px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.2); font-size:.8rem; }
+div[data-testid="stSidebar"] { background:linear-gradient(180deg,#eef2ff 0%,#f8fafc 60%,#ecfeff 100%); border-right:1px solid #dbeafe; }
+div.stButton > button { border-radius:12px; border:1px solid #c7d2fe; transition:all .15s ease; font-weight:600; }
+div.stButton > button:hover { border-color:#7c3aed; color:#5b21b6; box-shadow:0 4px 14px rgba(109,40,217,.12); }
+div[data-testid="stChatMessage"] { border-radius:16px; border:1px solid rgba(148,163,184,.18); padding:.55rem .8rem; }
+div[data-testid="stMetric"] { background:rgba(255,255,255,.75); border:1px solid #e0e7ff; border-radius:15px; padding:.7rem; }
 .small-note { color: #64748b; font-size: .9rem; }
+hr { border-color:#dbeafe; }
 </style>
 """, unsafe_allow_html=True)
 
 st.markdown("""
 <div class="hero">
-<h1>🌙 اردو AI Luna</h1>
-<p class="urdu">آپ کا ذاتی ذہین معاون — سوالات، تعلیم، تحریر، پروگرامنگ، تحقیق اور روزمرہ کاموں کے لیے</p>
+  <h1>🌙 اردو AI Luna</h1>
+  <p class="urdu">آپ کا ذاتی ذہین معاون — سوالات، تعلیم، تحریر، پروگرامنگ، تحقیق اور روزمرہ کاموں کے لیے</p>
+  <span class="hero-pill">✨ Smart Urdu Assistant&nbsp;&nbsp; • &nbsp;&nbsp;💬 Chat&nbsp;&nbsp; • &nbsp;&nbsp;📚 Learn&nbsp;&nbsp; • &nbsp;&nbsp;✍️ Create</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -81,7 +92,7 @@ if "active_chat" not in st.session_state:
     st.session_state.active_chat = "نئی گفتگو"
 
 with st.sidebar:
-    st.title("🌙 Luna Menu")
+    st.title("🌙 Luna Studio")
     mode = st.radio("AI موڈ", ["Demo Mode", "OpenAI API Mode"], index=0)
     model = st.text_input("API model ID", value=configured_model, help="یہ model ID آپ کے API اکاؤنٹ میں دستیاب ہونا ضروری ہے۔")
     st.caption("Default model ID: gpt-6-luna")
@@ -103,17 +114,17 @@ with st.sidebar:
         st.session_state.active_chat = name
         st.rerun()
     st.divider()
-    st.markdown("**خصوصیات**")
+    st.markdown("### ✨ خصوصیات")
     st.markdown("- اردو اور رومن اردو چیٹ\n- تحریر اور ترجمہ\n- تعلیم اور پروگرامنگ\n- چیٹ ایکسپورٹ\n- PDF گفتگو رپورٹ")
     st.caption("API استعمال کرنے پر OpenAI کی API billing لاگو ہو سکتی ہے۔")
 
-st.subheader("آپ کس کام میں مدد چاہتے ہیں؟")
+st.subheader("✨ آج آپ کیا کرنا چاہتے ہیں؟")
 quick = st.columns(4)
 quick_prompts = [
     ("✍️ تحریر", "میرے لیے ایک رسمی اردو درخواست لکھیں۔"),
-    ("🌐 ترجمہ", "اس متن کا اردو میں ترجمہ کریں: "),
-    ("💻 پروگرامنگ", "مجھے Python پروگرامنگ میں مدد دیں: "),
-    ("📚 تعلیم", "یہ موضوع آسان اردو میں سمجھائیں: "),
+    ("🌍 ترجمہ", "اس متن کا اردو میں ترجمہ کریں: "),
+    ("💻 کوڈنگ", "مجھے Python پروگرامنگ میں مدد دیں: "),
+    ("🎓 تعلیم", "یہ موضوع آسان اردو میں سمجھائیں: "),
 ]
 for col, (label, prompt) in zip(quick, quick_prompts):
     if col.button(label, use_container_width=True):
@@ -125,7 +136,7 @@ for msg in messages:
         st.markdown(msg["content"])
 
 pending = st.session_state.pop("pending_prompt", "")
-user_input = st.chat_input("اپنا سوال اردو، رومن اردو یا انگریزی میں لکھیں…")
+user_input = st.chat_input("💬 اپنا سوال اردو، رومن اردو یا انگریزی میں لکھیں…")
 if pending and not user_input:
     user_input = pending
 
@@ -172,4 +183,4 @@ with right:
         st.download_button("⬇️ PDF ڈاؤن لوڈ کریں", data=st.session_state.pdf_bytes,
                            file_name="urdu_ai_luna_report.pdf", mime="application/pdf", use_container_width=True)
 
-st.caption("اہم: یہ ابتدائی قابلِ توسیع ورژن ہے۔ AI کے جوابات کی تصدیق کریں۔ Demo Mode حقیقی GPT ماڈل استعمال نہیں کرتا۔")
+st.caption("🌙 اہم: AI کے جوابات کی تصدیق کریں۔ Demo Mode حقیقی GPT ماڈل استعمال نہیں کرتا۔")
